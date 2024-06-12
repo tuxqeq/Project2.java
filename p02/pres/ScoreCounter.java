@@ -1,12 +1,13 @@
 package p02.pres;
 
+import p02.game.StartEvent;
 import p02.game.TickEvent;
 import p02.game.TickEventListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ScoreCounter extends JPanel implements TickEventListener {
+public class ScoreCounter extends JPanel implements TickEventListener, StartEvent.StartEventListener {
     private SevenSegmentDigit hundreds;
     private SevenSegmentDigit tens;
     private SevenSegmentDigit ones;
@@ -43,5 +44,18 @@ public class ScoreCounter extends JPanel implements TickEventListener {
 
     public boolean isMaxScoreReached() {
         return hundreds.getValue() == 9 && tens.getValue() == 9 && ones.getValue() == 9;
+    }
+
+    public void reset() {
+        ones.setValue(0);
+        tens.setValue(0);
+        hundreds.setValue(0);
+    }
+
+    @Override
+    public void startEventOccurred() {
+        ones.setValue(0);
+        tens.setValue(0);
+        hundreds.setValue(0);
     }
 }

@@ -7,7 +7,6 @@ public class ResetEvent extends EventObject {
         super(source);
     }
     public interface ResetEventListener {
-        void startEventOccurred(StartEvent event);
 
         void resetEventOccurred(ResetEvent event);
     }

@@ -8,8 +8,6 @@ public class PlusOneEvent extends EventObject {
     }
 
     public interface PlusOneEventListener {
-        void startEventOccurred(StartEvent event);
-
         void plusOneEventOccurred(PlusOneEvent event);
     }
 

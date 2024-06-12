@@ -55,7 +55,7 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
         } else if (key == KeyEvent.VK_D) {
             moveRight();
         } else if (key == KeyEvent.VK_S) {
-            GameTimer.getInstance().startTimer();
+            startEventOccurred();
         }
     }
 
@@ -84,9 +84,10 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
         }
         repaint();
     }
-
+    int forCollision = 0;
     private void generateObstacles() {
         //moving forward
+        forCollision = board[1];
         for (int i = 1; i < 6; i++) {
             board[i] = board[i + 1];
         }
@@ -120,7 +121,7 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
     public void tickEventOccurred(TickEvent event) {
         canMove = true;
         if(scoreCounter.isMaxScoreReached()){
-            GameTimer.getInstance().resetTimer();
+            resetEventOccurred(new ResetEvent(this));
         }
         tickCounter++;
         if (tickCounter == 9) tickCounter++;
@@ -131,7 +132,34 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
         }else{
             generateBlank();
         }
+
+        checkCollision();
+
         repaint();
+
+
+    }
+
+    private void checkCollision() {
+        // Bitwise operation to detect collision
+        if (((1 << board[0]) & getObstacleBits(forCollision)) != 0) {
+            resetEventOccurred(new ResetEvent(this));
+
+        }
+        forCollision = 0;
+    }
+
+    private int getObstacleBits(int obstacle) {
+        // Convert obstacle value to bit representation
+        switch (obstacle) {
+            case 1: return 0b001; // single obstacle in the rightmost column
+            case 2: return 0b010; // single obstacle in the middle column
+            case 3: return 0b100; // single obstacle in the leftmost column
+            case 4: return 0b110; // two obstacles in the middle and right columns
+            case 5: return 0b101; // two obstacles in the left and right columns
+            case 6: return 0b011; // two obstacles in the left and middle columns
+            default: return 0b000; // no obstacles
+        }
     }
 
     public void generateBlank(){
@@ -143,9 +171,14 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
     }
 
     @Override
-    public void startEventOccurred(StartEvent event) {
-        GameTimer.getInstance().resetTimer();
+    public void startEventOccurred() {
+        GameTimer.getInstance().startTimer();
+        board = new int[7];
+        scoreCounter.reset();
+        tickCounter = -1;
+        repaint();
     }
+
 
     @Override
     public void plusOneEventOccurred(PlusOneEvent event) {
