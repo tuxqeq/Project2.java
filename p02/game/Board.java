@@ -17,9 +17,9 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
     private  boolean canMove;
     private int tickCounter;
     private  boolean running = false;
-    int forCollision = 0;
-    int forIncrement = 0;
-    TickEvent.TickEventListener tickEvent = this::tickEvent;
+    private int forCollision = 0;
+    private int forIncrement = 0;
+    private TickEvent.TickEventListener tickEvent = this::tickEvent;
 
 
     public Board(ScoreCounter scoreCounter) {
@@ -42,12 +42,13 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         for (int i = 1; i < 7; i++) {
             if (board[i] > 0 && board[i] < 4) {
                 g.setColor(Color.RED);
-                g.fillRect((board[i] - 1) * 50, getHeight() - (i+1) * 50, 50, 50);
-            }if (board[i] > 3) {
+                g.fillRect((board[i] - 1) * 50, getHeight() - (i + 1) * 50, 50, 50);
+            }
+            if (board[i] > 3) {
                 for (int j = 0; j < 3; j++) {
-                    if(j != board[i] - 4) {
+                    if (j != board[i] - 4) {
                         g.setColor(Color.RED);
-                        g.fillRect(j * 50, getHeight() - (i+1) * 50, 50, 50);
+                        g.fillRect(j * 50, getHeight() - (i + 1) * 50, 50, 50);
                     }
                 }
             }
@@ -104,8 +105,6 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         for (int i = 1; i < 6; i++) {
             board[i] = board[i + 1];
         }
-
-        //System.out.println(forCollision);
         int previous = 0;
         for (int i = 6; i > 0; i--) {
             if(board[i] != 0) {
@@ -113,7 +112,6 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
                 break;
             }
         }
-        //generating new
        if(previous <= 3 && previous > 0) {
            for (int j = 1; j < 4; j++) {
                if(j != previous && random.nextBoolean()) {
@@ -129,7 +127,6 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         }else{
             board[6] = random.nextInt(6) + 1;
         }
-        /*System.out.println(board[6]);*/
     }
 
 
@@ -151,7 +148,6 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         }
         checkCollision();
         increment();
-        //new PlusOneEvent().notifyPlusOneListeners();
         repaint();
     }
 
@@ -192,7 +188,6 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
             board[i] = board[i + 1];
         }
         board[6] = 0;
-        /*System.out.println(board[6]);*/
     }
 
     /*@Override
@@ -211,10 +206,4 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         repaint();
     }
 
-
-
-    /*@Override
-    public void resetEventOccurred() {
-        GameTimer.getInstance().resetTimer();
-    }*/
 }

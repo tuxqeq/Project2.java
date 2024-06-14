@@ -13,11 +13,11 @@ public class ScoreCounter extends JPanel /*implements TickEventListener, StartEv
     public ScoreCounter() {
         setLayout(new FlowLayout(FlowLayout.LEFT));
         Dimension digitSize = new Dimension(25, 50);
-        hundreds = new SevenSegmentDigit(digitSize);
-        tens = new SevenSegmentDigit(digitSize);
-        ones = new SevenSegmentDigit(digitSize);
-        ones.setNextDigit(tens);
-        tens.setNextDigit(hundreds);
+        hundreds = new SevenSegmentDigit(digitSize, null);
+        tens = new SevenSegmentDigit(digitSize, hundreds.getListener());
+        ones = new SevenSegmentDigit(digitSize, tens.getListener());
+        /*ones.setNextDigit(tens);
+        tens.setNextDigit(hundreds);*/
         add(hundreds);
         add(tens);
         add(ones);
@@ -26,7 +26,7 @@ public class ScoreCounter extends JPanel /*implements TickEventListener, StartEv
         StartEvent.StartEventListener startEventListener = this::start;
         StartEvent.addStartEventListener(startEventListener);
         PlusOneEvent.PlusOneEventListener plusOneEventListener = () -> {
-            ones.increment();
+            ones.getListener().plusOneEventOccurred();
         };
         PlusOneEvent.addPlusOneEventListener(plusOneEventListener);
         //ResetEvent.addResetEventListener(this);

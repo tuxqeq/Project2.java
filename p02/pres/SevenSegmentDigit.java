@@ -1,18 +1,27 @@
 package p02.pres;
 
 
+import p02.game.PlusOneEvent;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class SevenSegmentDigit extends JPanel {
     private int value;
     /*private List<SevenSegmentDigitListener> listeners;*/
-    private SevenSegmentDigit nextDigit;
+    //private SevenSegmentDigit nextDigit;
+    private PlusOneEvent.PlusOneEventListener plusOneEventListener = this::increment;
+    private PlusOneEvent.PlusOneEventListener next;
 
-    public SevenSegmentDigit(Dimension size) {
+    public SevenSegmentDigit(Dimension size, PlusOneEvent.PlusOneEventListener next) {
         this.value = 0;
        /* this.listeners = new ArrayList<>();*/
         this.setPreferredSize(size);
+        this.next = next;
+    }
+
+    public PlusOneEvent.PlusOneEventListener getListener(){
+        return this.plusOneEventListener;
     }
 
     @Override
@@ -54,14 +63,14 @@ public class SevenSegmentDigit extends JPanel {
         }
     }
 
-    public void setNextDigit(SevenSegmentDigit nextDigit) {
+    /*public void setNextDigit(SevenSegmentDigit nextDigit) {
         this.nextDigit = nextDigit;
-    }
+    }*/
 
     public void increment() {
         if (value == 9) {
             value = 0;
-            notifyPlusOneEvent();
+            next.plusOneEventOccurred();
         } else {
             value++;
         }
@@ -76,11 +85,11 @@ public class SevenSegmentDigit extends JPanel {
         listeners.remove(listener);
     }*/
 
-    private void notifyPlusOneEvent() {
-        if (nextDigit != null) {
-            nextDigit.increment();
-        }
-    }
+//    private void notifyPlusOneEvent() {
+//        if (nextDigit != null) {
+//            nextDigit.increment();
+//        }
+//    }
 
     public int getValue() {
         return value;
