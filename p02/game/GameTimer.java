@@ -5,14 +5,15 @@ import java.util.List;
 
 public class GameTimer extends Thread implements Runnable {
     private static GameTimer instance;
-    private List<TickEventListener> listeners;
+    private List<TickEventListener> tickEventListeners;
+    private List<PlusOneEvent.PlusOneEventListener> PlusOneEventListeners;
     private Thread thread;
     private boolean running;
     private int interval;
     private static final int INITIAL_INTERVAL = 1000; // Initial interval in milliseconds
 
     private GameTimer() {
-        this.listeners = new ArrayList<>();
+        this.tickEventListeners = new ArrayList<>();
         this.running = false;
         this.interval = INITIAL_INTERVAL;
     }
@@ -22,21 +23,6 @@ public class GameTimer extends Thread implements Runnable {
             instance = new GameTimer();
         }
         return instance;
-    }
-
-    public void addTickEventListener(TickEventListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeTickEventListener(TickEventListener listener) {
-        listeners.remove(listener);
-    }
-
-    private void notifyTickEvent() {
-        TickEvent event = new TickEvent(this);
-        for (TickEventListener listener : listeners) {
-            listener.tickEventOccurred(event);
-        }
     }
 
     @Override
@@ -76,4 +62,22 @@ public class GameTimer extends Thread implements Runnable {
         stopTimer();
         interval = INITIAL_INTERVAL;
     }
+
+
+    //Listeners
+    public void addTickEventListener(TickEventListener listener) {
+        tickEventListeners.add(listener);
+    }
+
+    public void removeTickEventListener(TickEventListener listener) {
+        tickEventListeners.remove(listener);
+    }
+
+    private void notifyTickEvent() {
+        TickEvent event = new TickEvent(this);
+        for (TickEventListener listener : tickEventListeners) {
+            listener.tickEventOccurred(event);
+        }
+    }
+
 }

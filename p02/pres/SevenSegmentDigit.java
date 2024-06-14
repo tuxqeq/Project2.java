@@ -81,7 +81,7 @@ public class SevenSegmentDigit extends JPanel {
     }
 
     private void notifyPlusOneEvent() {
-        PlusOneEvent event = new PlusOneEvent(this);
+        PlusOneEvent event = new PlusOneEvent();
         for (SevenSegmentDigitListener listener : listeners) {
             listener.plusOneEventOccurred(event);
         }

@@ -1,34 +1,44 @@
 package p02.pres;
 
-import p02.game.StartEvent;
-import p02.game.TickEvent;
-import p02.game.TickEventListener;
+import p02.game.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ScoreCounter extends JPanel implements TickEventListener, StartEvent.StartEventListener {
+public class ScoreCounter extends JPanel /*implements TickEventListener, StartEvent.StartEventListener, ResetEvent.ResetEventListener*/ {
     private SevenSegmentDigit hundreds;
     private SevenSegmentDigit tens;
     private SevenSegmentDigit ones;
 
     public ScoreCounter() {
-        this.setLayout(new FlowLayout(FlowLayout.LEFT));
+        setLayout(new FlowLayout(FlowLayout.LEFT));
         Dimension digitSize = new Dimension(25, 50);
         hundreds = new SevenSegmentDigit(digitSize);
         tens = new SevenSegmentDigit(digitSize);
         ones = new SevenSegmentDigit(digitSize);
         ones.setNextDigit(tens);
         tens.setNextDigit(hundreds);
-        this.add(hundreds);
-        this.add(tens);
-        this.add(ones);
+        add(hundreds);
+        add(tens);
+        add(ones);
+        ResetEvent.ResetEventListener resetEventListener = this::reset;
+        ResetEvent.addResetEventListener(resetEventListener);
+        StartEvent.StartEventListener startEventListener = this::start;
+        StartEvent.addStartEventListener(startEventListener);
+        PlusOneEvent.PlusOneEventListener plusOneEventListener = () -> {
+            ones.increment();
+        };
+        PlusOneEvent.addPlusOneEventListener(plusOneEventListener);
+        //ResetEvent.addResetEventListener(this);
     }
 
-    @Override
+
+
+
+   /* @Override
     public void tickEventOccurred(TickEvent event) {
         ones.increment();
-    }
+    }*/
 
     public int countForObstacles() {
         int count = 0;
@@ -36,7 +46,6 @@ public class ScoreCounter extends JPanel implements TickEventListener, StartEven
             count++;
             if (tens.getValue() == 0) {
                 count++;
-                if (ones.getValue() == 0) count++;
             }
         }
         return count;
@@ -47,15 +56,27 @@ public class ScoreCounter extends JPanel implements TickEventListener, StartEven
     }
 
     public void reset() {
+        this.setVisible(false);
+    }
+
+    public void start(){
+        this.setVisible(true);
         ones.setValue(0);
         tens.setValue(0);
         hundreds.setValue(0);
     }
 
-    @Override
+    /*@Override
     public void startEventOccurred() {
+        this.setVisible(true);
         ones.setValue(0);
         tens.setValue(0);
         hundreds.setValue(0);
-    }
+    }*/
+
+
+    /*@Override
+    public void resetEventOccurred() {
+        this.setVisible(false);
+    }*/
 }

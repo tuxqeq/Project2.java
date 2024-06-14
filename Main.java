@@ -1,5 +1,6 @@
 import p02.game.Board;
 import p02.game.GameTimer;
+import p02.game.ResetEvent;
 import p02.pres.ScoreCounter;
 
 import javax.swing.*;
@@ -23,8 +24,9 @@ public class Main {
 
         // Set up the game timer (singleton)
         GameTimer gameTimer = GameTimer.getInstance();
-        gameTimer.addTickEventListener(scoreCounter);
+        /*gameTimer.addTickEventListener(scoreCounter);*/
         gameTimer.addTickEventListener(board);
+        //ResetEvent.addResetEventListener(scoreCounter);
 
         // Final frame adjustments
         frame.setSize(400, 600);

@@ -4,26 +4,27 @@ import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
-public class StartEvent extends EventObject {
-    public StartEvent(Object source) {
-        super(source);
+public class StartEvent{
+    public StartEvent() {
+        GameTimer.getInstance().startTimer();
+
     }
 
     public interface StartEventListener {
         void startEventOccurred();
     }
 
-    private List<StartEventListener> listeners = new ArrayList<>();
+    private static List<StartEventListener> listeners = new ArrayList<>();
 
-    public void addCustomEventListener(StartEventListener listener) {
+    public static void addStartEventListener(StartEventListener listener) {
         listeners.add(listener);
     }
 
-    public void removeCustomEventListener(StartEventListener listener) {
+    public void removeStartEventListener(StartEventListener listener) {
         listeners.remove(listener);
     }
 
-    public void fireCustomEvent() {
+    public void notifyStartEventListeners() {
         for (StartEventListener listener : listeners) {
             listener.startEventOccurred();
         }

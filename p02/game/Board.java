@@ -6,15 +6,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Arrays;
 import java.util.Random;
 
-public class Board extends JPanel implements KeyListener, TickEventListener, StartEvent.StartEventListener, PlusOneEvent.PlusOneEventListener, ResetEvent.ResetEventListener {
+public class Board extends JPanel implements KeyListener, TickEventListener/*, StartEvent.StartEventListener,*//* PlusOneEvent.PlusOneEventListener, ResetEvent.ResetEventListener */{
     private static final int boardSize = 3;
     private int[] board;
     private Random random;
     private ScoreCounter scoreCounter;
     private  boolean canMove;
     private int tickCounter;
+    private  boolean running = false;
+    int forCollision = 0;
+    int forIncrement = 0;
 
     public Board(ScoreCounter scoreCounter) {
         this.board = new int[7];
@@ -54,8 +58,12 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
             moveLeft();
         } else if (key == KeyEvent.VK_D) {
             moveRight();
-        } else if (key == KeyEvent.VK_S) {
-            startEventOccurred();
+        } else if (key == KeyEvent.VK_S && !running) {
+//            startEventOccurred();
+            new StartEvent().notifyStartEventListeners();
+            start();
+            running = true;
+
         }
     }
 
@@ -84,13 +92,17 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
         }
         repaint();
     }
-    int forCollision = 0;
+
+
     private void generateObstacles() {
         //moving forward
         forCollision = board[1];
+
         for (int i = 1; i < 6; i++) {
             board[i] = board[i + 1];
         }
+
+        //System.out.println(forCollision);
         int previous = 0;
         for (int i = 6; i > 0; i--) {
             if(board[i] != 0) {
@@ -119,9 +131,11 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
 
     @Override
     public void tickEventOccurred(TickEvent event) {
+        forIncrement = board[1];
         canMove = true;
         if(scoreCounter.isMaxScoreReached()){
-            resetEventOccurred(new ResetEvent(this));
+            new ResetEvent().notifyResetEvent();
+            running = false;
         }
         tickCounter++;
         if (tickCounter == 9) tickCounter++;
@@ -132,18 +146,26 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
         }else{
             generateBlank();
         }
-
         checkCollision();
-
+        increment();
+        //new PlusOneEvent().notifyPlusOneListeners();
         repaint();
+    }
 
+    private void increment(){
+        if(forIncrement != 0){
+            new PlusOneEvent().notifyPlusOneListeners();
+            forIncrement = 0;
+        }
 
     }
 
     private void checkCollision() {
         // Bitwise operation to detect collision
         if (((1 << board[0]) & getObstacleBits(forCollision)) != 0) {
-            resetEventOccurred(new ResetEvent(this));
+            new ResetEvent().notifyResetEvent();
+            GameTimer.getInstance().resetTimer();
+            running = false;
 
         }
         forCollision = 0;
@@ -170,7 +192,7 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
         /*System.out.println(board[6]);*/
     }
 
-    @Override
+    /*@Override
     public void startEventOccurred() {
         GameTimer.getInstance().startTimer();
         board = new int[7];
@@ -178,15 +200,18 @@ public class Board extends JPanel implements KeyListener, TickEventListener, Sta
         tickCounter = -1;
         repaint();
     }
+*/
 
-
-    @Override
-    public void plusOneEventOccurred(PlusOneEvent event) {
-        GameTimer.getInstance().stopTimer();
+    public void start(){
+        board = new int[7];
+        tickCounter = -1;
+        repaint();
     }
 
-    @Override
-    public void resetEventOccurred(ResetEvent event) {
+
+
+    /*@Override
+    public void resetEventOccurred() {
         GameTimer.getInstance().resetTimer();
-    }
+    }*/
 }
