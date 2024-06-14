@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Board extends JPanel implements KeyListener, TickEventListener/*, StartEvent.StartEventListener,*//* PlusOneEvent.PlusOneEventListener, ResetEvent.ResetEventListener */{
+public class Board extends JPanel implements KeyListener/*, TickEventListener, StartEvent.StartEventListener,*//* PlusOneEvent.PlusOneEventListener, ResetEvent.ResetEventListener */{
     private static final int boardSize = 3;
     private int[] board;
     private Random random;
@@ -19,6 +19,8 @@ public class Board extends JPanel implements KeyListener, TickEventListener/*, S
     private  boolean running = false;
     int forCollision = 0;
     int forIncrement = 0;
+    TickEvent.TickEventListener tickEvent = this::tickEvent;
+
 
     public Board(ScoreCounter scoreCounter) {
         this.board = new int[7];
@@ -29,6 +31,7 @@ public class Board extends JPanel implements KeyListener, TickEventListener/*, S
         setLayout(new GridLayout(3, 3));
         addKeyListener(this);
         setFocusable(true);
+        TickEvent.addTickEventListener(tickEvent);
     }
 
     @Override
@@ -129,8 +132,8 @@ public class Board extends JPanel implements KeyListener, TickEventListener/*, S
         /*System.out.println(board[6]);*/
     }
 
-    @Override
-    public void tickEventOccurred(TickEvent event) {
+
+    public void tickEvent() {
         forIncrement = board[1];
         canMove = true;
         if(scoreCounter.isMaxScoreReached()){

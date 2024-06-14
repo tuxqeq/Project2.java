@@ -23,9 +23,9 @@ public class Main {
 
 
         // Set up the game timer (singleton)
-        GameTimer gameTimer = GameTimer.getInstance();
+        //GameTimer gameTimer = GameTimer.getInstance();
         /*gameTimer.addTickEventListener(scoreCounter);*/
-        gameTimer.addTickEventListener(board);
+        //gameTimer.addTickEventListener(board);
         //ResetEvent.addResetEventListener(scoreCounter);
 
         // Final frame adjustments

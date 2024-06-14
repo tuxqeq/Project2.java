@@ -1,21 +1,17 @@
 package p02.pres;
 
-import p02.game.PlusOneEvent;
-import p02.game.SevenSegmentDigitListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SevenSegmentDigit extends JPanel {
     private int value;
-    private List<SevenSegmentDigitListener> listeners;
+    /*private List<SevenSegmentDigitListener> listeners;*/
     private SevenSegmentDigit nextDigit;
 
     public SevenSegmentDigit(Dimension size) {
         this.value = 0;
-        this.listeners = new ArrayList<>();
+       /* this.listeners = new ArrayList<>();*/
         this.setPreferredSize(size);
     }
 
@@ -72,19 +68,15 @@ public class SevenSegmentDigit extends JPanel {
         repaint();
     }
 
-    public void addSevenSegmentDigitListener(SevenSegmentDigitListener listener) {
+   /* public void addSevenSegmentDigitListener(SevenSegmentDigitListener listener) {
         listeners.add(listener);
     }
 
     public void removeSevenSegmentDigitListener(SevenSegmentDigitListener listener) {
         listeners.remove(listener);
-    }
+    }*/
 
     private void notifyPlusOneEvent() {
-        PlusOneEvent event = new PlusOneEvent();
-        for (SevenSegmentDigitListener listener : listeners) {
-            listener.plusOneEventOccurred(event);
-        }
         if (nextDigit != null) {
             nextDigit.increment();
         }

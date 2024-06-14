@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlusOneEvent {
-    public PlusOneEvent() {
-
-    }
+    public PlusOneEvent() {}
 
     public interface PlusOneEventListener {
         void plusOneEventOccurred();
