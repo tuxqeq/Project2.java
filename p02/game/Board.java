@@ -6,10 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Arrays;
 import java.util.Random;
 
-public class Board extends JPanel implements KeyListener/*, TickEventListener, StartEvent.StartEventListener,*//* PlusOneEvent.PlusOneEventListener, ResetEvent.ResetEventListener */{
+public class Board extends JPanel implements KeyListener{
     private static final int boardSize = 3;
     private int[] board;
     private Random random;
@@ -29,14 +28,14 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         this.random = new Random();
         this.tickCounter = -1;
         setOpaque(false);
-        setPreferredSize(new Dimension(600, 600));
-        setLayout(new GridLayout(3, 3));
+        setPreferredSize(new Dimension(1, 1));
+        setLayout(new FlowLayout());
         addKeyListener(this);
         setFocusable(true);
         TickEvent.addTickEventListener(tickEvent);
     }
 
-    @Override
+    /*@Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLUE);
@@ -55,7 +54,7 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
                 }
             }
         }
-    }
+    }*/
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -88,7 +87,7 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
             board[0]--;
             canMove = false;
         }
-        repaint();
+        //repaint();
     }
 
     private void moveRight() {
@@ -96,14 +95,11 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
             board[0]++;
             canMove = false;
         }
-        repaint();
+        //repaint();
     }
 
 
     private void generateObstacles() {
-        //moving forward
-
-
         for (int i = 1; i < 6; i++) {
             board[i] = board[i + 1];
         }
@@ -151,7 +147,7 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         }
         checkCollision();
         increment();
-        repaint();
+        //repaint();
     }
 
     private void increment(){
@@ -163,7 +159,6 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
     }
 
     private void checkCollision() {
-        // Bitwise operation to detect collision
         if (((1 << board[0]) & getObstacleBits(forCollision)) != 0) {
             new ResetEvent().notifyResetEvent();
             GameTimer.getInstance().resetTimer();
@@ -173,16 +168,15 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
     }
 
     private int getObstacleBits(int obstacle) {
-        // Convert obstacle value to bit representation
-        switch (obstacle) {
-            case 1: return 0b001; // single obstacle in the rightmost column
-            case 2: return 0b010; // single obstacle in the middle column
-            case 3: return 0b100; // single obstacle in the leftmost column
-            case 4: return 0b110; // two obstacles in the middle and right columns
-            case 5: return 0b101; // two obstacles in the left and right columns
-            case 6: return 0b011; // two obstacles in the left and middle columns
-            default: return 0b000; // no obstacles
-        }
+        return switch (obstacle) {
+            case 1 -> 0b001; // single obstacle in the right column
+            case 2 -> 0b010; // single obstacle in the middle column
+            case 3 -> 0b100; // single obstacle in the left column
+            case 4 -> 0b110; // two obstacles in the middle and right columns
+            case 5 -> 0b101; // two obstacles in the left and right columns
+            case 6 -> 0b011; // two obstacles in the left and middle columns
+            default -> 0b000; // no obstacles
+        };
     }
 
     public void generateBlank(){
@@ -192,21 +186,15 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
         board[6] = 0;
     }
 
-    /*@Override
-    public void startEventOccurred() {
-        GameTimer.getInstance().startTimer();
-        board = new int[7];
-        scoreCounter.reset();
-        tickCounter = -1;
-        repaint();
-    }
-*/
-
     public void start(){
         board = new int[7];
         board[0] = 1;
         tickCounter = -1;
-        repaint();
+        //repaint();
+    }
+
+    public int[] getArr(){
+        return board;
     }
 
 }

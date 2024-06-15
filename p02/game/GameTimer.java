@@ -31,7 +31,6 @@ public class GameTimer extends Thread implements Runnable {
         while (running) {
             try {
                 Thread.sleep(interval);
-                //notifyTickEvent();
                 new TickEvent().notifyTickEventListeners();
                 decreaseInterval();
             } catch (InterruptedException e) {

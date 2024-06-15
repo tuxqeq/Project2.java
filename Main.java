@@ -14,7 +14,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        Image backgroundImage = new ImageIcon("./assets/autoslalom board.png").getImage();
+        Image backgroundImage = new ImageIcon("./assets/board.png").getImage();
         BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage);
 
         JLayeredPane layeredPane = new JLayeredPane();
@@ -28,8 +28,12 @@ public class Main {
         layeredPane.add(scoreCounter, JLayeredPane.MODAL_LAYER);
 
         Board board = new Board(scoreCounter);
-        board.setBounds(500, -50, 600, 600);
+        board.setBounds(500, -50, 1, 1);
         layeredPane.add(board, JLayeredPane.MODAL_LAYER);
+
+        GamePanel gamePanel = new GamePanel(board);
+        gamePanel.setBounds(0, 0, 800, 600);
+        layeredPane.add(gamePanel, JLayeredPane.MODAL_LAYER);
 
 
         /*frame.add(backgroundPanel);
