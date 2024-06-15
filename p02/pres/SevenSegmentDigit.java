@@ -16,6 +16,7 @@ public class SevenSegmentDigit extends JPanel {
     public SevenSegmentDigit(Dimension size, PlusOneEvent.PlusOneEventListener next) {
         this.value = 0;
        /* this.listeners = new ArrayList<>();*/
+        setOpaque(false);
         this.setPreferredSize(size);
         this.next = next;
     }

@@ -24,10 +24,12 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
 
     public Board(ScoreCounter scoreCounter) {
         this.board = new int[7];
+        board[0] = 1;
         this.scoreCounter = scoreCounter;
         this.random = new Random();
         this.tickCounter = -1;
-        setPreferredSize(new Dimension(400, 400));
+        setOpaque(false);
+        setPreferredSize(new Dimension(600, 600));
         setLayout(new GridLayout(3, 3));
         addKeyListener(this);
         setFocusable(true);
@@ -100,7 +102,7 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
 
     private void generateObstacles() {
         //moving forward
-        forCollision = board[1];
+
 
         for (int i = 1; i < 6; i++) {
             board[i] = board[i + 1];
@@ -132,6 +134,7 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
 
     public void tickEvent() {
         forIncrement = board[1];
+        forCollision = board[1];
         canMove = true;
         if(scoreCounter.isMaxScoreReached()){
             new ResetEvent().notifyResetEvent();
@@ -165,9 +168,8 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
             new ResetEvent().notifyResetEvent();
             GameTimer.getInstance().resetTimer();
             running = false;
-
+            forCollision = 0;
         }
-        forCollision = 0;
     }
 
     private int getObstacleBits(int obstacle) {
@@ -202,6 +204,7 @@ public class Board extends JPanel implements KeyListener/*, TickEventListener, S
 
     public void start(){
         board = new int[7];
+        board[0] = 1;
         tickCounter = -1;
         repaint();
     }

@@ -21,6 +21,7 @@ public class ScoreCounter extends JPanel /*implements TickEventListener, StartEv
         add(hundreds);
         add(tens);
         add(ones);
+        setOpaque(false);
         ResetEvent.ResetEventListener resetEventListener = this::reset;
         ResetEvent.addResetEventListener(resetEventListener);
         StartEvent.StartEventListener startEventListener = this::start;

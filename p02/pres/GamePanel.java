@@ -1,5 +1,6 @@
 package p02.pres;
 
+import p02.game.Board;
 import p02.game.TickEvent;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ public class GamePanel extends JPanel {
 
     public GamePanel(ScoreCounter scoreCounter) {
         this.scoreCounter = scoreCounter;
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        setLayout(new BorderLayout());
         setPreferredSize(new Dimension(500, 500));
         TickEvent.addTickEventListener(tickEventListener);
     }
