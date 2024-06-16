@@ -15,7 +15,7 @@ class MyView extends JPanel implements TableCellRenderer {
     private Image right;
     private Image left;
     static double[][] forRows = {
-            {21.5,22.5,23.5}, //first row
+            {21.8,22.5,23.3}, //first row
             {18.7,20.5,22.2}, //second
             {15.6, 18.1, 20.8}, //third
             {12.4, 15.9, 19.4}, //fourth
@@ -30,8 +30,8 @@ class MyView extends JPanel implements TableCellRenderer {
     public MyView() {
         setOpaque(false);
         try {
-            img = ImageIO.read(new File("./assets/obstacle12.png"));
-            car = ImageIO.read(new File("./assets/caroff.png"));
+            img = ImageIO.read(new File("./assets/obstacle.png"));
+            car = ImageIO.read(new File("./assets/car.png"));
             right = ImageIO.read(new File("./assets/right.png"));
             left = ImageIO.read(new File("./assets/left.png"));
         } catch (IOException e) {
@@ -49,8 +49,8 @@ class MyView extends JPanel implements TableCellRenderer {
 
         super.paintComponent(g);
         if(MyData.getCount()%2 == row%2 && row != 6 && MyData.getCount() != 0) {
-            g.drawImage(left, (int) (forRows[row][0] * 32) - 23 * row, row == 0 ? 10 : 0, 30 * (row + 1) / 2, 25 * (row + 1) / 2, null);
-            g.drawImage(right, (int) (forRows[row][2] * 32) + 20 * row, row == 0 ? 10 : 0, 15 * (row + 1) / 2, 20 * (row + 1) / 2, null);
+            g.drawImage(left, (int) (forRows[row][0] * 32) - 40 * (row + 1)/2, row == 0 ? 10 : 0, 38 * (row + 1) / 2, 29 * (row + 1) / 2, null);
+            g.drawImage(right, (int) (forRows[row][2] * 32) + 40 * (row+1)/2, row == 0 ? 10 : 0, 15 * (row + 1) / 2, 20 * (row + 1) / 2, null);
         }
         if(row != 6){
             if (value > 0 && value < 4){

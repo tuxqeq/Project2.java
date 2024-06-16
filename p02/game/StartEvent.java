@@ -7,7 +7,6 @@ import java.util.List;
 public class StartEvent{
     public StartEvent() {
         GameTimer.getInstance().startTimer();
-
     }
 
     public interface StartEventListener {
@@ -18,10 +17,6 @@ public class StartEvent{
 
     public static void addStartEventListener(StartEventListener listener) {
         listeners.add(listener);
-    }
-
-    public void removeStartEventListener(StartEventListener listener) {
-        listeners.remove(listener);
     }
 
     public void notifyStartEventListeners() {

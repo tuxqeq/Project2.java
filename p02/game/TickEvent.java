@@ -6,9 +6,7 @@ import java.util.List;
 
 public class TickEvent {
 
-    public TickEvent() {
-
-    }
+    public TickEvent() {}
 
     public interface TickEventListener {
         void tickEventOccurred();
@@ -18,10 +16,6 @@ public class TickEvent {
 
     public static void addTickEventListener(TickEventListener listener) {
         listeners.add(listener);
-    }
-
-    public void removeTickEventListener(TickEventListener listener) {
-        listeners.remove(listener);
     }
 
     public void notifyTickEventListeners() {

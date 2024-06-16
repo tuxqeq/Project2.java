@@ -24,7 +24,7 @@ public class Main {
         layeredPane.add(backgroundPanel, JLayeredPane.DEFAULT_LAYER);
 
         ScoreCounter scoreCounter = new ScoreCounter();
-        scoreCounter.setBounds(25, 25, 100, 75);
+        scoreCounter.setBounds(100, 50, 100, 75);
         layeredPane.add(scoreCounter, JLayeredPane.MODAL_LAYER);
 
         Board board = new Board(scoreCounter);

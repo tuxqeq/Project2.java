@@ -9,7 +9,6 @@ public class ResetEvent {
         GameTimer.getInstance().resetTimer();
     }
     public interface ResetEventListener {
-
         void resetEventOccurred();
     }
 
