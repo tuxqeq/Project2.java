@@ -1,6 +1,4 @@
 import p02.game.Board;
-import p02.game.GameTimer;
-import p02.game.ResetEvent;
 import p02.pres.BackgroundPanel;
 import p02.pres.GamePanel;
 import p02.pres.ScoreCounter;
