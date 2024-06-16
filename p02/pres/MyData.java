@@ -11,7 +11,6 @@ class MyData extends AbstractTableModel {
 
     public void setData(int[] data) {
         rowCount++;
-        System.out.println("setdata");
         this.data = data;
     }
 
@@ -39,8 +38,10 @@ class MyData extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        return true;
+        return false;
     }
+
+
 
     public static int getCount(){
         return rowCount;

@@ -28,7 +28,7 @@ public class Board extends JPanel implements KeyListener{
         this.random = new Random();
         this.tickCounter = -1;
         setOpaque(false);
-        setPreferredSize(new Dimension(1, 1));
+        setPreferredSize(new Dimension(800, 600));
         setLayout(new FlowLayout());
         addKeyListener(this);
         setFocusable(true);
