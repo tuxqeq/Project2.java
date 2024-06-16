@@ -4,14 +4,15 @@ import javax.swing.table.AbstractTableModel;
 
 public
 class MyData extends AbstractTableModel {
-
+    private static int rowCount;
 
     private int[] data = new int[7];
 
     //public MyData(int[] data) {}
 
     public void setData(int[] data) {
-        //System.out.println("setdata");
+        rowCount++;
+        System.out.println("setdata");
         this.data = data;
     }
 
@@ -42,6 +43,9 @@ class MyData extends AbstractTableModel {
         return true;
     }
 
+    public static int getCount(){
+        return rowCount;
+    }
 }
 
 
