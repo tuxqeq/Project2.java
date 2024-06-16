@@ -35,16 +35,10 @@ public class Main {
         gamePanel.setBounds(0, 0, 800, 600);
         layeredPane.add(gamePanel, JLayeredPane.MODAL_LAYER);
 
-
-        /*frame.add(backgroundPanel);
-        frame.add(board, BorderLayout.EAST);
-        frame.add(scoreCounter, BorderLayout.NORTH);*/
         frame.add(layeredPane, BorderLayout.CENTER);
-        // Final frame adjustments
         frame.setSize(800, 600);
         frame.setVisible(true);
 
-        // Add the KeyListener to the frame
         frame.addKeyListener(board);
     }
 }

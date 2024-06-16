@@ -1,21 +1,15 @@
 package p02.game;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class GameTimer extends Thread implements Runnable {
     private static GameTimer instance;
-    //private List<TickEventListener> tickEventListeners;
-    //private List<PlusOneEvent.PlusOneEventListener> PlusOneEventListeners;
     private Thread thread;
     private boolean running;
     private int interval;
-    private static final int INITIAL_INTERVAL = 1000; // Initial interval in milliseconds
+    private static final int gameinterval = 1000;
 
     private GameTimer() {
-        //this.tickEventListeners = new ArrayList<>();
         this.running = false;
-        this.interval = INITIAL_INTERVAL;
+        this.interval = gameinterval;
     }
 
     public static synchronized GameTimer getInstance() {
@@ -40,14 +34,14 @@ public class GameTimer extends Thread implements Runnable {
     }
 
     private void decreaseInterval() {
-        if (interval > 500) { // Minimum interval to prevent excessive speed
-            interval -= 5; // Decrease interval to simulate acceleration
+        if (interval > 500) {
+            interval -= 5;
         }
     }
 
     public void startTimer() {
         if (!running) {
-            interval = INITIAL_INTERVAL;
+            interval = gameinterval;
             thread = new Thread(this);
             thread.start();
         }
@@ -60,7 +54,7 @@ public class GameTimer extends Thread implements Runnable {
 
     public void resetTimer() {
         stopTimer();
-        interval = INITIAL_INTERVAL;
+        interval = gameinterval;
     }
 
 }

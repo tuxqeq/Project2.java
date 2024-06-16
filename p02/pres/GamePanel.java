@@ -29,7 +29,7 @@ public class GamePanel extends JPanel {
         jTable.setRowHeight(80);
         jTable.setPreferredSize(new Dimension(800, 600));
         add(jTable);
-        jTable.setGridColor(new Color(255, 0, 0, 0)/*Color.RED*/);
+        jTable.setGridColor(new Color(255, 0, 0, 0));
         setPreferredSize(new Dimension(800, 600));
 
 

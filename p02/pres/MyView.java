@@ -18,10 +18,10 @@ class MyView extends JPanel implements TableCellRenderer {
             {21.5,22.5,23.5}, //first row
             {18.7,20.5,22.2}, //second
             {15.6, 18.1, 20.8}, //third
-            {12.4, 15.9, 19.4},
-            {9.5, 13.9, 18},
-            {6.5, 11.9, 16.9},
-            {4, 10, 16}
+            {12.4, 15.9, 19.4}, //fourth
+            {9.5, 13.9, 18}, //fifth
+            {6.5, 11.9, 16.9}, // sixth
+            {4, 10, 16} // car
     };
     int row = 0;
     int value = 1;

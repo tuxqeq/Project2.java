@@ -5,7 +5,7 @@ import p02.game.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class ScoreCounter extends JPanel /*implements TickEventListener, StartEvent.StartEventListener, ResetEvent.ResetEventListener*/ {
+public class ScoreCounter extends JPanel {
     private SevenSegmentDigit hundreds;
     private SevenSegmentDigit tens;
     private SevenSegmentDigit ones;
@@ -16,8 +16,6 @@ public class ScoreCounter extends JPanel /*implements TickEventListener, StartEv
         hundreds = new SevenSegmentDigit(digitSize, null);
         tens = new SevenSegmentDigit(digitSize, hundreds.getListener());
         ones = new SevenSegmentDigit(digitSize, tens.getListener());
-        /*ones.setNextDigit(tens);
-        tens.setNextDigit(hundreds);*/
         add(hundreds);
         add(tens);
         add(ones);
@@ -30,16 +28,9 @@ public class ScoreCounter extends JPanel /*implements TickEventListener, StartEv
             ones.getListener().plusOneEventOccurred();
         };
         PlusOneEvent.addPlusOneEventListener(plusOneEventListener);
-        //ResetEvent.addResetEventListener(this);
     }
 
 
-
-
-   /* @Override
-    public void tickEventOccurred(TickEvent event) {
-        ones.increment();
-    }*/
 
     public int countForObstacles() {
         int count = 0;
@@ -66,18 +57,4 @@ public class ScoreCounter extends JPanel /*implements TickEventListener, StartEv
         tens.setValue(0);
         hundreds.setValue(0);
     }
-
-    /*@Override
-    public void startEventOccurred() {
-        this.setVisible(true);
-        ones.setValue(0);
-        tens.setValue(0);
-        hundreds.setValue(0);
-    }*/
-
-
-    /*@Override
-    public void resetEventOccurred() {
-        this.setVisible(false);
-    }*/
 }

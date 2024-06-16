@@ -8,7 +8,6 @@ class MyData extends AbstractTableModel {
 
     private int[] data = new int[7];
 
-    //public MyData(int[] data) {}
 
     public void setData(int[] data) {
         rowCount++;

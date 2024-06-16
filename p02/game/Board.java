@@ -35,26 +35,6 @@ public class Board extends JPanel implements KeyListener{
         TickEvent.addTickEventListener(tickEvent);
     }
 
-    /*@Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.setColor(Color.BLUE);
-        g.fillRect(board[0] * 50, getHeight() - 50, 50, 50);
-        for (int i = 1; i < 7; i++) {
-            if (board[i] > 0 && board[i] < 4) {
-                g.setColor(Color.RED);
-                g.fillRect((board[i] - 1) * 50, getHeight() - (i + 1) * 50, 50, 50);
-            }
-            if (board[i] > 3) {
-                for (int j = 0; j < 3; j++) {
-                    if (j != board[i] - 4) {
-                        g.setColor(Color.RED);
-                        g.fillRect(j * 50, getHeight() - (i + 1) * 50, 50, 50);
-                    }
-                }
-            }
-        }
-    }*/
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -64,7 +44,6 @@ public class Board extends JPanel implements KeyListener{
         } else if (key == KeyEvent.VK_D) {
             moveRight();
         } else if (key == KeyEvent.VK_S && !running) {
-//            startEventOccurred();
             new StartEvent().notifyStartEventListeners();
             start();
             running = true;
@@ -87,7 +66,6 @@ public class Board extends JPanel implements KeyListener{
             board[0]--;
             canMove = false;
         }
-        //repaint();
     }
 
     private void moveRight() {
@@ -95,7 +73,6 @@ public class Board extends JPanel implements KeyListener{
             board[0]++;
             canMove = false;
         }
-        //repaint();
     }
 
 
@@ -147,7 +124,6 @@ public class Board extends JPanel implements KeyListener{
         }
         checkCollision();
         increment();
-        //repaint();
     }
 
     private void increment(){
@@ -190,7 +166,6 @@ public class Board extends JPanel implements KeyListener{
         board = new int[7];
         board[0] = 1;
         tickCounter = -1;
-        //repaint();
     }
 
     public int[] getArr(){

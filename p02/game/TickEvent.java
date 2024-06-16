@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
-/*public class TickEvent extends EventObject {
-    public TickEvent(Object source) {
-        super(source);
-    }
-}*/
-
 public class TickEvent {
 
     public TickEvent() {
