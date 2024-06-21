@@ -29,6 +29,7 @@ class MyView extends JPanel implements TableCellRenderer {
 
     public MyView() {
         setOpaque(false);
+        setFocusable(false);
         try {
             img = ImageIO.read(new File("./assets/obstacle.png"));
             car = ImageIO.read(new File("./assets/car.png"));

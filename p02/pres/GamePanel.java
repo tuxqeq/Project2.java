@@ -30,6 +30,7 @@ public class GamePanel extends JPanel {
         add(jTable);
         jTable.setGridColor(new Color(0, 0, 0, 0));
         setPreferredSize(new Dimension(800, 600));
+        setFocusable(false);
 
 
         TickEvent.addTickEventListener(tickEventListener);
