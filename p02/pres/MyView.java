@@ -59,7 +59,7 @@ class MyView extends JPanel implements TableCellRenderer {
             if (value > 3) {
                 for (int j = 0; j < 3; j++) {
                     if (j != value - 4) {
-                        g.drawImage(img, (int)(forRows[row][j] * 32), 0, 45 * (row + 1) / 2, 15 * (row + 1) / 2,null);
+                        g.drawImage(img, (int)(forRows[row][j] * 32), row == 0 ? 10 : 0, 45 * (row + 1) / 2, 15 * (row + 1) / 2,null);
                     }
                 }
             }

@@ -47,7 +47,6 @@ public class Board extends JPanel implements KeyListener{
             new StartEvent().notifyStartEventListeners();
             start();
             running = true;
-
         }
     }
 
@@ -131,7 +130,6 @@ public class Board extends JPanel implements KeyListener{
             new PlusOneEvent().notifyPlusOneListeners();
             forIncrement = 0;
         }
-
     }
 
     private void checkCollision() {
@@ -171,5 +169,4 @@ public class Board extends JPanel implements KeyListener{
     public int[] getArr(){
         return board;
     }
-
 }

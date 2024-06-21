@@ -46,15 +46,9 @@ public class GameTimer extends Thread implements Runnable {
             thread.start();
         }
     }
-
-    public void stopTimer() {
+    public void resetTimer() {
         running = false;
         thread = null;
-    }
-
-    public void resetTimer() {
-        stopTimer();
         interval = gameinterval;
     }
-
 }
